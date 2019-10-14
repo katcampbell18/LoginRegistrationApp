@@ -43,13 +43,13 @@ public class HomeController {
     @GetMapping("/register")
     public String showRegPage(Model model){
         model.addAttribute("user", new User());
-        return "registration";
+        return "register";
     }
     @PostMapping("/register")
     public String processRegForm(@Valid @ModelAttribute("user") User user, BindingResult result, Model model){
         model.addAttribute("user", user);
         if (result.hasErrors()){
-            return "registration";
+            return "register";
         }
         else{
             userService.saveUser(user);
