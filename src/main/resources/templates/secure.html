@@ -8,8 +8,15 @@
     <title>Secure</title>
 </head>
 <body>
+<div class="container">
     <h3>Secure Page</h3>
     <a href="/logout">Logout</a>
+    <hr>
+    <h4>email</h4>
+    <p th:text="${user.email}"></p>
+    <h4>last name</h4>
+    <p th:text="${user.lastName}"></p>
+</div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
