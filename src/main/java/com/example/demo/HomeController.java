@@ -19,6 +19,8 @@ public class HomeController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    UserService userService;
 
     @RequestMapping("/")
     public String index(){
@@ -38,6 +40,22 @@ public class HomeController {
         model.addAttribute("user", userRepository.findByUsername(username));
         return "secure";
     }
-
+    @GetMapping("/register")
+    public String showRegPage(Model model){
+        model.addAttribute("user", new User());
+        return "registration";
+    }
+    @PostMapping("/register")
+    public String processRegForm(@Valid @ModelAttribute("user") User user, BindingResult result, Model model){
+        model.addAttribute("user", user);
+        if (result.hasErrors()){
+            return "registration";
+        }
+        else{
+            userService.saveUser(user);
+            model.addAttribute("message", "User account created");
+        }
+        return "index";
+    }
 
 }
