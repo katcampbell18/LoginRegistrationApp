@@ -12,20 +12,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Arrays;
 
 @Controller
 public class HomeController {
 
     @Autowired
-    UserRepository userRepository;
+    UserService userService;
 
     @Autowired
-    UserService userService;
+    UserRepository userRepository;
+
 
     @RequestMapping("/")
     public String index(){
         return "index";
     }
+
+
     @RequestMapping("/login")
     public String login(){
         return "login";
@@ -43,15 +47,20 @@ public class HomeController {
     @GetMapping("/register")
     public String showRegPage(Model model){
         model.addAttribute("user", new User());
-        return "register";
+
+        return "registration";
     }
+    @Autowired
+    RoleRepository roleRepository;
     @PostMapping("/register")
-    public String processRegForm(@Valid @ModelAttribute("user") User user, BindingResult result, Model model){
+    public String processRegForm(@ModelAttribute("user") User user, BindingResult result, Model model){
         model.addAttribute("user", user);
         if (result.hasErrors()){
-            return "register";
+            return "registration";
         }
         else{
+            Role userRole = roleRepository.findByRole("USER");
+            user.setRoles((Arrays.asList(userRole)));
             userService.saveUser(user);
             model.addAttribute("message", "User account created");
         }

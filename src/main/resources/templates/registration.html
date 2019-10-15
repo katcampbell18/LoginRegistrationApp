@@ -5,12 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        span{color: red;}
+    </style>
     <title>Register</title>
 </head>
 <body>
 <div class="container">
     <h1>New User Registration</h1>
     <form autocomplete="off" action="#" th:action="@{/register}" th:object:="${user}" method="post">
+        <input type="hidden" th:field="*{id}" />
         <div class="form-group">
             <label for="firstName">First Name</label>
             <strong><span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name Error</span></strong>
@@ -36,8 +40,9 @@
             <strong><span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</span></strong>
             <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="Password" />
         </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
